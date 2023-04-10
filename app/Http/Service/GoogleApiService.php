@@ -6,8 +6,9 @@ use App\Http\Requests\ChallengeDataRequest;
 
 class GoogleApiService
 {
-	public function checkDataExist(ChallengeDataRequest $data): bool
+	public function dataExists(ChallengeDataRequest $data): bool
 	{
+
 
 	}
 
