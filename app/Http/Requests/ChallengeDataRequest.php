@@ -15,17 +15,37 @@ class ChallengeDataRequest extends FormRequest
 	{
 		return [
 			'name'            => ['required', 'string', 'in:Benny,Chris,Adrian'],
-//			'date'            => ['required', 'date_format:YYYY-MM-DD'],
-//			'steps'           => ['required', 'numeric', 'min:0'],
-//			'exerciseMinutes' => ['required', 'numeric', 'min:0'],
-//			'pushups'         => ['required', 'string', 'in:YES,NO'],
-//			'alcohol'         => ['required', 'string', 'in:YES,NO'],
-//			'rings'           => ['required', 'string', 'in:YES,NO'],
+			'date'            => ['required', 'date_format:YYYY-MM-DD'],
+			'steps'           => ['required', 'numeric', 'min:0', 'int'],
+			'exerciseMinutes' => ['required', 'numeric', 'min:0', 'int'],
+			'pushups'         => ['required', 'string', 'in:YES,NO'],
+			'alcohol'         => ['required', 'string', 'in:YES,NO'],
+			'rings'           => ['required', 'string', 'in:YES,NO'],
 		];
 	}
 
 	public function getName(): string
 	{
 		return $this->get('name');
+	}
+
+	public function getDate(): string
+	{
+		return $this->get('date');
+	}
+
+	public function getSteps(): int
+	{
+		return $this->get('steps');
+	}
+
+	public function getExerciseMinutes(): int
+	{
+		return $this->get('exerciseMinutes');
+	}
+
+	public function getPushups(): bool
+	{
+		return $this->get('pushups');
 	}
 }
