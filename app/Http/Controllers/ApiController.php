@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\GoogleSheetException;
 use App\Http\Requests\ChallengeDataRequest;
 use App\Http\Service\GoogleApiService;
 use Illuminate\Support\Collection;
@@ -22,7 +23,11 @@ class ApiController extends Controller
 		 * if data already exist, update it
 		 */
 		if ($this->apiService->dataExists($request)) {
-			$this->apiService->updateData($request);
+			try {
+				$this->apiService->updateData($request);
+			} catch(GoogleSheetException) {
+				return 'you never should see this..';
+			}
 
 			return 'updated data';
 		}
