@@ -16,6 +16,9 @@ class ApiController extends Controller
 		$this->apiService = new GoogleApiService();
 	}
 
+	/**
+	 * test
+	 */
 	public function test()
 	{
 		$data = Sheets::spreadsheet(config('google.sheet_id'))

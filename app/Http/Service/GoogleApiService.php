@@ -44,13 +44,11 @@ class GoogleApiService
 		return -1;
 	}
 
-	public function updateData(ChallengeDataRequest $data): bool
+	public function updateData(ChallengeDataRequest $data): void
 	{
-
 	}
 
-	public function createData(ChallengeDataRequest $data): bool
+	public function createData(ChallengeDataRequest $data): void
 	{
-
 	}
 }
