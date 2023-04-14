@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class ChallengeDataRequest extends FormRequest
 {
@@ -15,12 +17,12 @@ class ChallengeDataRequest extends FormRequest
 	{
 		return [
 			'name'            => ['required', 'string', 'in:Benny,Chris,Adrian'],
-			'date'            => ['required', 'date_format:YYYY-MM-DD'],
+			'date'            => ['required', 'date'],
 			'steps'           => ['required', 'numeric', 'min:0', 'int'],
 			'exerciseMinutes' => ['required', 'numeric', 'min:0', 'int'],
-			'pushups'         => ['required', 'string', 'in:YES,NO'],
-			'alcohol'         => ['required', 'string', 'in:YES,NO'],
-			'rings'           => ['required', 'string', 'in:YES,NO'],
+			'pushups'         => ['required', 'string', 'in:Yes,No'],
+			'alcohol'         => ['required', 'string', 'in:Yes,No'],
+			'rings'           => ['required', 'string', 'in:Yes,No'],
 		];
 	}
 
@@ -47,5 +49,13 @@ class ChallengeDataRequest extends FormRequest
 	public function getPushups(): bool
 	{
 		return $this->get('pushups');
+	}
+
+	protected function failedValidation(Validator $validator)
+	{
+		throw new HttpResponseException(response()->json([
+			'errors' => $validator->errors(),
+			'status' => true,
+		], 422));
 	}
 }
