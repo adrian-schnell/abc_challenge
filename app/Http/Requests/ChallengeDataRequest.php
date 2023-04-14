@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class ChallengeDataRequest extends FormRequest
 {
@@ -11,16 +13,28 @@ class ChallengeDataRequest extends FormRequest
 		return true;
 	}
 
+	protected function prepareForValidation(): void
+	{
+		$this->merge([
+			'validWorkoutDuration' => floatval(str_replace(',', '.', $this->get('validWorkoutDuration'))),
+			'totalWorkoutDuration' => floatval(str_replace(',', '.', $this->get('totalWorkoutDuration'))),
+		]);
+	}
+
 	public function rules(): array
 	{
 		return [
-			'name'            => ['required', 'string', 'in:Benny,Chris,Adrian'],
-			'date'            => ['required', 'date_format:YYYY-MM-DD'],
-			'steps'           => ['required', 'numeric', 'min:0', 'int'],
-			'exerciseMinutes' => ['required', 'numeric', 'min:0', 'int'],
-			'pushups'         => ['required', 'string', 'in:YES,NO'],
-			'alcohol'         => ['required', 'string', 'in:YES,NO'],
-			'rings'           => ['required', 'string', 'in:YES,NO'],
+			'name'                 => ['required', 'string', 'in:Benny,Chris,Adrian'],
+			'date'                 => ['required', 'date'],
+			'stepCount'            => ['required', 'numeric', 'min:0', 'int'],
+			'pushupsDone'          => ['required', 'string', 'in:Yes,No'],
+			'workoutDone'          => ['required', 'string', 'in:Yes,No'],
+			'alcoholConsumption'   => ['required', 'string', 'in:Yes,No'],
+			'closedRings'          => ['required', 'string', 'in:Yes,No'],
+			'validWorkoutDuration' => ['required', 'numeric'],
+			'totalWorkoutDuration' => ['required', 'numeric'],
+			'validWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
+			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 		];
 	}
 
@@ -34,18 +48,74 @@ class ChallengeDataRequest extends FormRequest
 		return $this->get('date');
 	}
 
-	public function getSteps(): int
+	public function getStepsCount(): int
 	{
-		return $this->get('steps');
+		return $this->get('stepCount');
 	}
 
-	public function getExerciseMinutes(): int
+	public function getPushupsDone(): string
 	{
-		return $this->get('exerciseMinutes');
+		return $this->get('pushupsDone');
 	}
 
-	public function getPushups(): bool
+	public function getWorkoutDone(): string
 	{
-		return $this->get('pushups');
+		return $this->get('workoutDone');
+	}
+
+	public function getAlcoholConsumption(): string
+	{
+		return $this->get('alcoholConsumption');
+	}
+
+	public function getClosedRings(): string
+	{
+		return $this->get('closedRings');
+	}
+
+	public function getValidWorkoutDuration(): float
+	{
+		return $this->get('validWorkoutDuration');
+	}
+
+	public function getTotalWorkoutDuration(): float
+	{
+		return $this->get('totalWorkoutDuration');
+	}
+
+	public function getValidWorkouts(): int
+	{
+		return $this->get('validWorkouts');
+	}
+
+	public function getTotalWorkouts(): int
+	{
+		return $this->get('totalWorkouts');
+	}
+
+	public function transformRequestToArray(): array
+	{
+		return [
+			now()->format('d.m.Y H:i:s'),//"06.04.2023 12:10:54",
+			$this->getName(),
+			$this->getDate(),
+			$this->getStepsCount(),
+			$this->getPushupsDone(),
+			$this->getWorkoutDone(),
+			$this->getAlcoholConsumption(),
+			$this->getValidWorkoutDuration(),
+			$this->getClosedRings(),
+			$this->getValidWorkouts(),
+			$this->getTotalWorkouts(),
+			$this->getTotalWorkoutDuration(),
+		];
+	}
+
+	protected function failedValidation(Validator $validator)
+	{
+		throw new HttpResponseException(response()->json([
+			'errors' => $validator->errors(),
+			'status' => true,
+		], 422));
 	}
 }
