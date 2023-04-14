@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Exceptions\GoogleSheetException;
 use App\Http\Requests\ChallengeDataRequest;
 use App\Http\Service\GoogleApiService;
-use Illuminate\Support\Collection;
-use Revolution\Google\Sheets\Facades\Sheets;
 
 class ApiController extends Controller
 {
@@ -25,7 +23,7 @@ class ApiController extends Controller
 		if ($this->apiService->dataExists($request)) {
 			try {
 				$this->apiService->updateData($request);
-			} catch(GoogleSheetException) {
+			} catch (GoogleSheetException) {
 				return 'you never should see this..';
 			}
 

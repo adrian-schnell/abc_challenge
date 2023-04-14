@@ -39,7 +39,6 @@ class GoogleApiService
 				if (Carbon::parse($item[2])->diffInDays(Carbon::parse($data->getDate())) == 0
 					&& $item[1] == $data->getName()) {
 					$this->foundIndex = $index;
-					ray($index);
 
 					return $index;
 				}
