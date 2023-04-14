@@ -41,7 +41,7 @@ class ApiController extends Controller
 			return 'updated data';
 		}
 		// create new dataset
-		$this->apiService->createData($request);
+		$this->apiService->appendData($request);
 
 		return 'created new dataset';
 	}
