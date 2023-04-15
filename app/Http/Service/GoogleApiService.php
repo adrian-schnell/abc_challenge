@@ -16,21 +16,10 @@ class GoogleApiService
 		return $this->findIndex($data) != -1;
 	}
 
-	/**
-	 * [▼
-	 * 0 => "06.04.2023 12:10:54"
-	 * 1 => "Benny"
-	 * 2 => "02.04.2023"
-	 * 3 => "9157"
-	 * 4 => "No"
-	 * 5 => "Yes"
-	 * 6 => "No"
-	 * ]
-	 */
 	private function findIndex(ChallengeDataRequest $data): int
 	{
-		$sheetData = Sheets::spreadsheet(config('google.sheet_id'))
-			->sheet(config('google.sheet_name'))
+		$sheetData = Sheets::spreadsheet(config('challenge.sheet_id'))
+			->sheet(config('challenge.sheet_name'))
 			->all();
 		// remove header
 		unset($sheetData[0]);
@@ -58,16 +47,16 @@ class GoogleApiService
 		if (is_null($this->foundIndex)) {
 			throw GoogleSheetException::runFindIndexFirst();
 		}
-		Sheets::spreadsheet(config('google.sheet_id'))
-			->sheet(config('google.sheet_name'))
+		Sheets::spreadsheet(config('challenge.sheet_id'))
+			->sheet(config('challenge.sheet_name'))
 			->range('A' . ($this->foundIndex + 1) . ':L' . $this->foundIndex + 1)
 			->update([$data->transformRequestToArray()]);
 	}
 
 	public function appendData(ChallengeDataRequest $data): void
 	{
-		Sheets::spreadsheet(config('google.sheet_id'))
-			->sheet(config('google.sheet_name'))
+		Sheets::spreadsheet(config('challenge.sheet_id'))
+			->sheet(config('challenge.sheet_name'))
 			->append([$data->transformRequestToArray()]);
 	}
 }
