@@ -28,8 +28,7 @@ class ChallengeDataRequest extends FormRequest
 			'date'                 => ['required', 'date'],
 			'stepCount'            => ['required', 'numeric', 'min:0', 'int'],
 			'pushupsDone'          => ['required', 'string', 'in:Yes,No'],
-			'workoutDone'          => ['required', 'string', 'in:Yes,No'],
-			'alcoholConsumption'   => ['required', 'string', 'in:Yes,No'],
+			'alcoholAbstinence'    => ['required', 'string', 'in:Yes,No'],
 			'closedRings'          => ['required', 'string', 'in:Yes,No'],
 			'validWorkoutDuration' => ['required', 'numeric'],
 			'totalWorkoutDuration' => ['required', 'numeric'],
@@ -58,14 +57,9 @@ class ChallengeDataRequest extends FormRequest
 		return $this->validated('pushupsDone');
 	}
 
-	public function getWorkoutDone(): string
+	public function getAlcoholAbstinence(): string
 	{
-		return $this->validated('workoutDone');
-	}
-
-	public function getAlcoholConsumption(): string
-	{
-		return $this->validated('alcoholConsumption');
+		return $this->validated('alcoholAbstinence');
 	}
 
 	public function getClosedRings(): string
@@ -101,8 +95,7 @@ class ChallengeDataRequest extends FormRequest
 			$this->getDate(),
 			$this->getStepsCount(),
 			$this->getPushupsDone(),
-			$this->getWorkoutDone(),
-			$this->getAlcoholConsumption(),
+			$this->getAlcoholAbstinence(),
 			$this->getValidWorkoutDuration(),
 			$this->getClosedRings(),
 			$this->getValidWorkouts(),
