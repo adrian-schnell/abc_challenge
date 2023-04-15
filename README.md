@@ -50,3 +50,5 @@ To use the proxy, simply make a GET request to:
 https://YOUR_DOMAIN/api/challenge_results?name=NAME&date=CHALLENGE_DATE&stepCount=123&exerciseMinutes=99&pushupsDone=Yes
 &alcoholConsumption=No&workoutDone=Yes&closedRings=Yes&validWorkoutDuration=91.1&totalWorkoutDuration=56.43&validWorkouts=2&totalWorkouts=1
 ```
+
+The validation rule can be seen in the *ChallengeDataRequest* form request.
