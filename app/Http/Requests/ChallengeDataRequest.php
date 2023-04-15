@@ -91,12 +91,12 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getNoSugar(): string
 	{
-		return $this->get('noSugar');
+		return $this->validated('noSugar');
 	}
 
 	public function getNoCarbs(): string
 	{
-		return $this->get('noCarbs');
+		return $this->validated('noCarbs');
 	}
 
 	public function transformRequestToArray(): array
