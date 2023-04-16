@@ -49,7 +49,7 @@ class GoogleApiService
 		}
 		Sheets::spreadsheet(config('challenge.sheet_id'))
 			->sheet(config('challenge.sheet_name'))
-			->range('A' . ($this->foundIndex + 1) . ':L' . $this->foundIndex + 1)
+			->range('A' . ($this->foundIndex + 1) . ':N' . $this->foundIndex + 1)
 			->update([$data->transformRequestToArray()]);
 	}
 
