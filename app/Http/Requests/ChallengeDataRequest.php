@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChallengeDataRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class ChallengeDataRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'name'                 => ['required', 'string', 'in:Benny,Chris,Adrian'],
+			'name'                 => ['required', 'string', sprintf('in:%s', config('challenge.challengers'))],
 			'date'                 => ['required', 'date'],
 			'stepCount'            => ['required', 'numeric', 'min:0', 'int'],
 			'pushupsDone'          => ['required', 'string', 'in:Yes,No'],
@@ -90,7 +91,7 @@ class ChallengeDataRequest extends FormRequest
 	public function transformRequestToArray(): array
 	{
 		return [
-			now()->format('d.m.Y H:i:s'),//"06.04.2023 12:10:54",
+			now()->format('d.m.Y H:i:s'), // format e.g. "06.04.2023 12:10:54",
 			$this->getName(),
 			$this->getDate(),
 			$this->getStepsCount(),
@@ -109,6 +110,6 @@ class ChallengeDataRequest extends FormRequest
 		throw new HttpResponseException(response()->json([
 			'errors' => $validator->errors(),
 			'status' => true,
-		], 422));
+		], Response::HTTP_UNPROCESSABLE_ENTITY));
 	}
 }
