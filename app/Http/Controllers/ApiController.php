@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exceptions\GoogleSheetException;
 use App\Http\Requests\ChallengeDataRequest;
 use App\Http\Service\GoogleApiService;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response as Response;
 
 class ApiController extends Controller
 {
@@ -15,7 +17,7 @@ class ApiController extends Controller
 		$this->apiService = new GoogleApiService();
 	}
 
-	public function receiveResults(ChallengeDataRequest $request): string
+	public function receiveResults(ChallengeDataRequest $request): JsonResponse
 	{
 		/**
 		 * if data already exist, update it
@@ -24,14 +26,20 @@ class ApiController extends Controller
 			try {
 				$this->apiService->updateData($request);
 			} catch (GoogleSheetException) {
-				return 'you never should see this..';
+				return response()->json([
+					'message' => sprintf('Sorry %s, you never should see this error 🫣', $request->getName()),
+				], Response::HTTP_BAD_REQUEST);
 			}
 
-			return 'updated data';
+			return response()->json([
+				'message' => sprintf('Hey %s, your data for %s was updated!', $request->getName(), $request->getDate()),
+			], Response::HTTP_OK);
 		}
 		// create new dataset
 		$this->apiService->appendData($request);
 
-		return 'created new dataset';
+		return response()->json([
+			'message' => sprintf('Hey %s, sent new dataset for %s!', $request->getName(), $request->getDate()),
+		], Response::HTTP_OK);
 	}
 }

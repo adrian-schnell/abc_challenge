@@ -39,52 +39,52 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getName(): string
 	{
-		return $this->get('name');
+		return $this->validated('name');
 	}
 
 	public function getDate(): string
 	{
-		return $this->get('date');
+		return $this->validated('date');
 	}
 
 	public function getStepsCount(): int
 	{
-		return $this->get('stepCount');
+		return $this->validated('stepCount');
 	}
 
 	public function getPushupsDone(): string
 	{
-		return $this->get('pushupsDone');
+		return $this->validated('pushupsDone');
 	}
 
 	public function getAlcoholAbstinence(): string
 	{
-		return $this->get('alcoholAbstinence');
+		return $this->validated('alcoholAbstinence');
 	}
 
 	public function getClosedRings(): string
 	{
-		return $this->get('closedRings');
+		return $this->validated('closedRings');
 	}
 
 	public function getValidWorkoutDuration(): float
 	{
-		return $this->get('validWorkoutDuration');
+		return $this->validated('validWorkoutDuration');
 	}
 
 	public function getTotalWorkoutDuration(): float
 	{
-		return $this->get('totalWorkoutDuration');
+		return $this->validated('totalWorkoutDuration');
 	}
 
 	public function getValidWorkouts(): int
 	{
-		return $this->get('validWorkouts');
+		return $this->validated('validWorkouts');
 	}
 
 	public function getTotalWorkouts(): int
 	{
-		return $this->get('totalWorkouts');
+		return $this->validated('totalWorkouts');
 	}
 
 	public function transformRequestToArray(): array
