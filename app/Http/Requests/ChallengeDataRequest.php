@@ -35,6 +35,8 @@ class ChallengeDataRequest extends FormRequest
 			'totalWorkoutDuration' => ['required', 'numeric'],
 			'validWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
+			'noSugar'              => ['sometimes', 'string', 'in:Yes,No'],
+			'noCarbs'              => ['sometimes', 'string', 'in:Yes,No'],
 		];
 	}
 
@@ -88,6 +90,16 @@ class ChallengeDataRequest extends FormRequest
 		return $this->validated('totalWorkouts');
 	}
 
+	public function getNoSugar(): string
+	{
+		return $this->validated('noSugar', '');
+	}
+
+	public function getNoCarbs(): string
+	{
+		return $this->validated('noCarbs', '');
+	}
+
 	public function transformRequestToArray(): array
 	{
 		return [
@@ -102,6 +114,8 @@ class ChallengeDataRequest extends FormRequest
 			$this->getValidWorkouts(),
 			$this->getTotalWorkouts(),
 			$this->getTotalWorkoutDuration(),
+			$this->getNoSugar(),
+			$this->getNoCarbs(),
 		];
 	}
 
