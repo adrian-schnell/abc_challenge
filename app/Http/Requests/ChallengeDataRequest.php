@@ -28,15 +28,15 @@ class ChallengeDataRequest extends FormRequest
 			'name'                 => ['required', 'string', sprintf('in:%s', config('challenge.challengers'))],
 			'date'                 => ['required', 'date'],
 			'stepCount'            => ['required', 'numeric', 'min:0', 'int'],
-			'pushupsDone'          => ['required', 'string', 'in:Yes,No'],
-			'alcoholAbstinence'    => ['required', 'string', 'in:Yes,No'],
-			'closedRings'          => ['required', 'string', 'in:Yes,No'],
+			'pushupsDone'          => ['required', 'string', 'in:Yes,No,Ja,Nein'],
+			'alcoholAbstinence'    => ['required', 'string', 'in:Yes,No,Ja,Nein'],
+			'closedRings'          => ['required', 'string', 'in:Yes,No,Ja,Nein'],
 			'validWorkoutDuration' => ['required', 'numeric'],
 			'totalWorkoutDuration' => ['required', 'numeric'],
 			'validWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
-			'noSugar'              => ['sometimes', 'nullable', 'string', 'in:Yes,No'],
-			'noCarbs'              => ['sometimes', 'nullable', 'string', 'in:Yes,No'],
+			'noSugar'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
+			'noCarbs'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
 		];
 	}
 
@@ -57,17 +57,17 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getPushupsDone(): string
 	{
-		return $this->validated('pushupsDone');
+		return $this->validateYesNoAnswer($this->validated('pushupsDone'));
 	}
 
 	public function getAlcoholAbstinence(): string
 	{
-		return $this->validated('alcoholAbstinence');
+		return $this->validateYesNoAnswer($this->validated('alcoholAbstinence'));
 	}
 
 	public function getClosedRings(): string
 	{
-		return $this->validated('closedRings');
+		return $this->validateYesNoAnswer();
 	}
 
 	public function getValidWorkoutDuration(): float
@@ -92,12 +92,19 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getNoSugar(): string
 	{
-		return $this->validated('noSugar') ?? '';
+		if (is_null($this->validated('noSugar'))) {
+			return '';
+		}
+		return $this->validateYesNoAnswer($this->validated('noSugar'));
+
 	}
 
 	public function getNoCarbs(): string
 	{
-		return $this->validated('noCarbs') ?? '';
+		if (is_null($this->validated('noCarbs'))) {
+			return '';
+		}
+		return $this->validateYesNoAnswer($this->validated('noCarbs'));
 	}
 
 	public function transformRequestToArray(): array
@@ -125,5 +132,17 @@ class ChallengeDataRequest extends FormRequest
 			'errors' => $validator->errors(),
 			'status' => true,
 		], Response::HTTP_UNPROCESSABLE_ENTITY));
+	}
+
+	protected function validateYesNoAnswer(string $value): string
+	{
+		if (in_array($value, ['Yes', 'No'])) {
+			return $value;
+		}
+		if ($value == 'Ja') {
+			return 'Yes';
+		}
+
+		return 'No';
 	}
 }
