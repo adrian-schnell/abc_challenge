@@ -95,6 +95,7 @@ class ChallengeDataRequest extends FormRequest
 		if (is_null($this->validated('noSugar'))) {
 			return '';
 		}
+
 		return $this->validateYesNoAnswer($this->validated('noSugar'));
 
 	}
@@ -104,6 +105,7 @@ class ChallengeDataRequest extends FormRequest
 		if (is_null($this->validated('noCarbs'))) {
 			return '';
 		}
+
 		return $this->validateYesNoAnswer($this->validated('noCarbs'));
 	}
 
