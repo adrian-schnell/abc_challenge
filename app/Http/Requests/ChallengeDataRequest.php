@@ -35,8 +35,8 @@ class ChallengeDataRequest extends FormRequest
 			'totalWorkoutDuration' => ['required', 'numeric'],
 			'validWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
-			'noSugar'              => ['sometimes', 'string', 'in:Yes,No'],
-			'noCarbs'              => ['sometimes', 'string', 'in:Yes,No'],
+			'noSugar'              => ['sometimes', 'nullable', 'string', 'in:Yes,No'],
+			'noCarbs'              => ['sometimes', 'nullable', 'string', 'in:Yes,No'],
 		];
 	}
 
