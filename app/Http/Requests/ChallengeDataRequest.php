@@ -67,7 +67,7 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getClosedRings(): string
 	{
-		return $this->validateYesNoAnswer();
+		return $this->validateYesNoAnswer($this->validated('closedRings'));
 	}
 
 	public function getValidWorkoutDuration(): float
