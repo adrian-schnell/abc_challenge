@@ -50,13 +50,13 @@ class GoogleApiService
 		Sheets::spreadsheet(config('challenge.sheet_id'))
 			->sheet(config('challenge.sheet_name'))
 			->range('A' . ($this->foundIndex + 1) . ':M' . $this->foundIndex + 1)
-			->update([$data->transformRequestToArray()]);
+			->update([$data->transformRequestToArray()], 'USER_ENTERED');
 	}
 
 	public function appendData(ChallengeDataRequest $data): void
 	{
 		Sheets::spreadsheet(config('challenge.sheet_id'))
 			->sheet(config('challenge.sheet_name'))
-			->append([$data->transformRequestToArray()]);
+			->append([$data->transformRequestToArray()], 'USER_ENTERED');
 	}
 }
