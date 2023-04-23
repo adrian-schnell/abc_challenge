@@ -37,9 +37,9 @@ class ChallengeDataRequest extends FormRequest
 			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 			'noSugar'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
 			'noCarbs'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
-			'ringsActivityEnergy'  => ['sometimes', 'numeric', 'min:0', 'int'],
-			'ringsExercise'        => ['sometimes', 'numeric', 'min:0', 'int'],
-			'ringsStand'           => ['sometimes', 'numeric', 'min:0', 'int'],
+			'ringsActivityEnergy'  => ['sometimes', 'nullable', 'numeric', 'min:0', 'int'],
+			'ringsExercise'        => ['sometimes', 'nullable', 'numeric', 'min:0', 'int'],
+			'ringsStand'           => ['sometimes', 'nullable', 'numeric', 'min:0', 'int'],
 		];
 	}
 
@@ -114,17 +114,17 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getActivityEnergyRing(): int
 	{
-		return $this->validated('ringsActivityEnergy');
+		return $this->validated('ringsActivityEnergy') ?? 0;
 	}
 
 	public function getExerciseRing(): int
 	{
-		return $this->validated('ringsExercise');
+		return $this->validated('ringsExercise') ?? 0;
 	}
 
 	public function getStandRing(): int
 	{
-		return $this->validated('ringsStand');
+		return $this->validated('ringsStand') ?? 0;
 	}
 
 	public function transformRequestToArray(): array
