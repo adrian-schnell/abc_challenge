@@ -2,8 +2,8 @@
 
 use App\Http\Requests\ChallengeDataRequest;
 
-if (!function_exists('getCharOfAlphabet')) {
-	function getCharOfAlphabet(): string
+if (!function_exists('getCharOfMaxRange')) {
+	function getCharOfMaxRange(): string
 	{
 		$alphabet = range('A', 'Z');
 
