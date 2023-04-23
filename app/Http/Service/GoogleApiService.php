@@ -49,7 +49,7 @@ class GoogleApiService
 		}
 		Sheets::spreadsheet(config('challenge.sheet_id'))
 			->sheet(config('challenge.sheet_name'))
-			->range(sprintf('A%s:%s%s', $this->foundIndex + 1, getCharOfAlphabet(-1), $this->foundIndex + 1))
+			->range(sprintf('A%s:%s%s', $this->foundIndex + 1, getCharOfAlphabet(), $this->foundIndex + 1))
 			->update([$data->transformRequestToArray()], 'USER_ENTERED');
 	}
 
