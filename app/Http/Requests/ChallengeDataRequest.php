@@ -149,6 +149,11 @@ class ChallengeDataRequest extends FormRequest
 		];
 	}
 
+	public function getCurrentRequestSize(): int
+	{
+		return count($this->rules());
+	}
+
 	protected function failedValidation(Validator $validator)
 	{
 		throw new HttpResponseException(response()->json([
