@@ -70,6 +70,10 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getClosedRings(): string
 	{
+		if (is_null($this->validated('closedRings'))) {
+			return '';
+		}
+
 		return $this->validateYesNoAnswer($this->validated('closedRings'));
 	}
 
