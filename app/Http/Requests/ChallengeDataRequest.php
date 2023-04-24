@@ -155,7 +155,7 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getCurrentRequestSize(): int
 	{
-		return count($this->rules());
+		return count($this->rules()) + 1;
 	}
 
 	protected function failedValidation(Validator $validator)
