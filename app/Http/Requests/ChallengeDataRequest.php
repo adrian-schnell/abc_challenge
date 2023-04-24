@@ -30,7 +30,7 @@ class ChallengeDataRequest extends FormRequest
 			'stepCount'            => ['required', 'numeric', 'min:0', 'int'],
 			'pushupsDone'          => ['required', 'string', 'in:Yes,No,Ja,Nein'],
 			'alcoholAbstinence'    => ['required', 'string', 'in:Yes,No,Ja,Nein'],
-			'closedRings'          => ['required', 'string', 'in:Yes,No,Ja,Nein'],
+			'closedRings'          => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
 			'validWorkoutDuration' => ['required', 'numeric'],
 			'totalWorkoutDuration' => ['required', 'numeric'],
 			'validWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
