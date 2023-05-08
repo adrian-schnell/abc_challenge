@@ -37,9 +37,9 @@ class ChallengeDataRequest extends FormRequest
 			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 			'noSugar'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
 			'noCarbs'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
-			'ringsActivityEnergy'  => ['sometimes', 'nullable', 'int', 'min:0'],
-			'ringsExercise'        => ['sometimes', 'nullable', 'int', 'min:0'],
-			'ringsStand'           => ['sometimes', 'nullable', 'int', 'min:0'],
+			'ringsActivityEnergy'  => ['sometimes', 'nullable', 'string'],
+			'ringsExercise'        => ['sometimes', 'nullable', 'string'],
+			'ringsStand'           => ['sometimes', 'nullable', 'string'],
 		];
 	}
 
@@ -118,17 +118,23 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getActivityEnergyRing(): int
 	{
-		return $this->validated('ringsActivityEnergy') < 0 ? 0 : $this->validated('ringsActivityEnergy');
+		$value = intval(str_replace(".", "", $this->validated('ringsActivityEnergy')));
+
+		return $value <= 0 ? 0 : $this->validated('ringsActivityEnergy');
 	}
 
 	public function getExerciseRing(): int
 	{
-		return $this->validated('ringsExercise') < 0 ? 0 : $this->validated('ringsExercise');
+		$value = intval(str_replace(".", "", $this->validated('ringsExercise')));
+
+		return $value <= 0 ? 0 : $this->validated('ringsExercise');
 	}
 
 	public function getStandRing(): int
 	{
-		return $this->validated('ringsStand') < 0 ? 0 : $this->validated('ringsStand');
+		$value = intval(str_replace(".", "", $this->validated('ringsStand')));
+
+		return $value <= 0 ? 0 : $this->validated('ringsStand');
 	}
 
 	public function transformRequestToArray(): array
