@@ -118,17 +118,17 @@ class ChallengeDataRequest extends FormRequest
 
 	public function getActivityEnergyRing(): int
 	{
-		return $this->validated('ringsActivityEnergy') ?? 0;
+		return $this->validated('ringsActivityEnergy') < 0 ? 0 : $this->validated('ringsActivityEnergy');
 	}
 
 	public function getExerciseRing(): int
 	{
-		return $this->validated('ringsExercise') ?? 0;
+		return $this->validated('ringsExercise') < 0 ? 0 : $this->validated('ringsExercise');
 	}
 
 	public function getStandRing(): int
 	{
-		return $this->validated('ringsStand') ?? 0;
+		return $this->validated('ringsStand') < 0 ? 0 : $this->validated('ringsStand');
 	}
 
 	public function transformRequestToArray(): array
