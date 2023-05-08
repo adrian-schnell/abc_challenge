@@ -32,14 +32,16 @@ class ApiController extends Controller
 			}
 
 			return response()->json([
-				'message' => sprintf('Hey %s, your data for %s was updated!', $request->getName(), $request->getDate()),
+				'message' => sprintf('Hey %s, deine Infos für den %s wurden aktualisiert!', $request->getName(),
+					$request->getDate()),
 			], Response::HTTP_OK);
 		}
 		// create new dataset
 		$this->apiService->appendData($request);
 
 		return response()->json([
-			'message' => sprintf('Hey %s, sent new dataset for %s!', $request->getName(), $request->getDate()),
+			'message' => sprintf('Hey %s, Tagesupdate für den %s wurde übertragen!', $request->getName(),
+				$request->getDate()),
 		], Response::HTTP_OK);
 	}
 }
