@@ -27,7 +27,7 @@ class ChallengeDataRequest extends FormRequest
 		return [
 			'name'                 => ['required', 'string', sprintf('in:%s', config('challenge.challengers'))],
 			'date'                 => ['required', 'date'],
-			'stepCount'            => ['required', 'numeric', 'min:0', 'int'],
+			'stepCount'            => ['required', 'int', 'min:0'],
 			'pushupsDone'          => ['required', 'string', 'in:Yes,No,Ja,Nein'],
 			'alcoholAbstinence'    => ['required', 'string', 'in:Yes,No,Ja,Nein'],
 			'closedRings'          => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
@@ -37,9 +37,9 @@ class ChallengeDataRequest extends FormRequest
 			'totalWorkouts'        => ['required', 'numeric', 'min:0', 'int'],
 			'noSugar'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
 			'noCarbs'              => ['sometimes', 'nullable', 'string', 'in:Yes,No,Ja,Nein'],
-			'ringsActivityEnergy'  => ['sometimes', 'nullable', 'numeric', 'min:0', 'int'],
-			'ringsExercise'        => ['sometimes', 'nullable', 'numeric', 'min:0', 'int'],
-			'ringsStand'           => ['sometimes', 'nullable', 'numeric', 'min:0', 'int'],
+			'ringsActivityEnergy'  => ['sometimes', 'nullable', 'int', 'min:0'],
+			'ringsExercise'        => ['sometimes', 'nullable', 'int', 'min:0'],
+			'ringsStand'           => ['sometimes', 'nullable', 'int', 'min:0'],
 		];
 	}
 
