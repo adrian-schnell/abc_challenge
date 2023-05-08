@@ -34,7 +34,8 @@ class ApiController extends Controller
 			return response()->json([
 				'message' => sprintf('Hey %s, deine Infos für den %s wurden aktualisiert!', $request->getName(),
 					$request->getDate()),
-			], Response::HTTP_OK);
+			], Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+				JSON_UNESCAPED_UNICODE);
 		}
 		// create new dataset
 		$this->apiService->appendData($request);
@@ -42,6 +43,7 @@ class ApiController extends Controller
 		return response()->json([
 			'message' => sprintf('Hey %s, Tagesupdate für den %s wurde übertragen!', $request->getName(),
 				$request->getDate()),
-		], Response::HTTP_OK);
+		], Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+			JSON_UNESCAPED_UNICODE);
 	}
 }
