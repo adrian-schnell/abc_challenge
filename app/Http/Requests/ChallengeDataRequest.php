@@ -42,6 +42,7 @@ class ChallengeDataRequest extends FormRequest
             'ringsActivityEnergy'  => ['sometimes', 'nullable', 'string'],
             'ringsExercise'        => ['sometimes', 'nullable', 'string'],
             'ringsStand'           => ['sometimes', 'nullable', 'string'],
+            'mindfulness'          => ['sometimes', 'nullable', 'numeric', 'int'],
         ];
     }
 
@@ -118,6 +119,29 @@ class ChallengeDataRequest extends FormRequest
         return $this->validateYesNoAnswer($this->validated('noCarbs'));
     }
 
+    public function getNoGluten(): string
+    {
+        if (is_null($this->validated('noGluten'))) {
+            return '';
+        }
+
+        return $this->validateYesNoAnswer($this->validated('noGluten'));
+    }
+
+    public function getNoDairy(): string
+    {
+        if (is_null($this->validated('noDairy'))) {
+            return '';
+        }
+
+        return $this->validateYesNoAnswer($this->validated('noDairy'));
+    }
+
+    public function getMindfulnessDuration(): float
+    {
+        return $this->validated('mindfulness');
+    }
+
     public function getActivityEnergyRing(): int
     {
         $value = intval(str_replace(".", "", $this->validated('ringsActivityEnergy')));
@@ -158,6 +182,9 @@ class ChallengeDataRequest extends FormRequest
             $this->getActivityEnergyRing(),
             $this->getExerciseRing(),
             $this->getStandRing(),
+            $this->getNoGluten(),
+            $this->getNoDairy(),
+            $this->getMindfulnessDuration(),
         ];
     }
 

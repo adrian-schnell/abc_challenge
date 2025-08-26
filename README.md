@@ -52,7 +52,7 @@ To use the proxy, simply make a GET request to:
 https://YOUR_DOMAIN/api/challenge_results?
 name=NAME&date=CHALLENGE_DATE&stepCount=123&pushupsDone=Yes&alcoholAbstinence=No&closedRings=Yes&validWorkoutDuration
 =91.1&totalWorkoutDuration=56.43&validWorkouts=2&totalWorkouts=1&noSugar=Yes&noCarbs=No&noGluten=Yes
-&noDairy=Yes&ringsActivityEnergy=500&ringsExercise=45&ringsStand=10
+&noDairy=Yes&ringsActivityEnergy=500&ringsExercise=45&ringsStand=10&mindfulness=100
 ```
 
 | #  | Field Name           |  Type  | Purpose / Description                                 |
@@ -74,7 +74,7 @@ name=NAME&date=CHALLENGE_DATE&stepCount=123&pushupsDone=Yes&alcoholAbstinence=No
 | 15 | ringsActivityEnergy  |  auto  | Value of Activity Energy Ring                         |
 | 16 | ringsExercise        |  auto  | Value of Exercise Ring                                |
 | 17 | ringsStand           |  auto  | Value of Stand Ring                                   |
-| 18 | mindfulnes           |  auto  | Value of Mindfulnes Ring                              |
+| 18 | mindfulnes           |  auto  | Value of Mindfulnes Ring in minutes                   |
 
 The validation rule can be seen in the [ChallengeDataRequest](app/Http/Requests/ChallengeDataRequest.php) form request.
 
