@@ -74,7 +74,7 @@ name=NAME&date=CHALLENGE_DATE&stepCount=123&pushupsDone=Yes&alcoholAbstinence=No
 | 15 | ringsActivityEnergy  |  auto  | Value of Activity Energy Ring                         |
 | 16 | ringsExercise        |  auto  | Value of Exercise Ring                                |
 | 17 | ringsStand           |  auto  | Value of Stand Ring                                   |
-| 18 | mindfulnes           |  auto  | Value of Mindfulnes Ring in minutes                   |
+| 18 | mindfulness          |  auto  | Value of Mindfulnes Ring in minutes                   |
 
 The validation rule can be seen in the [ChallengeDataRequest](app/Http/Requests/ChallengeDataRequest.php) form request.
 
