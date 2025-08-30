@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('challenge_results', [ApiController::class, 'receiveResults']);
+Route::get('statistics', [ApiController::class, 'getStatistics']);
