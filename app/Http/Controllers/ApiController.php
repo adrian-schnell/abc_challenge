@@ -68,7 +68,7 @@ class ApiController extends Controller
         }
 
         if (!empty($errors)) {
-            return response()->json(['errors' => $errors], Response::HTTP_NOT_FOUND);
+            return response()->json(['errors' => $errors], Response::HTTP_SERVICE_UNAVAILABLE);
         }
 
         return response()->json(['statistic_data' => $data]);
