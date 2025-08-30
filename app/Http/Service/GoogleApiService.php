@@ -5,6 +5,7 @@ namespace App\Http\Service;
 use App\Exceptions\GoogleSheetException;
 use App\Http\Requests\ChallengeDataRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Revolution\Google\Sheets\Facades\Sheets;
 
 class GoogleApiService
@@ -58,5 +59,25 @@ class GoogleApiService
 		Sheets::spreadsheet(config('challenge.sheet_id'))
 			->sheet(config('challenge.sheet_name'))
 			->append([$data->transformRequestToArray()], 'USER_ENTERED');
+	}
+
+    /**
+     * Retrieves the value from a specified cell range in the spreadsheet.
+     *
+     * @param  string  $range  The cell range to retrieve the value from.
+     *
+     * @return string|null The value of the cell, or null if no value is found or an exception occurs.
+     */
+	public function getValueFromCell(string $range): ?string
+	{
+		try {
+			$values = Sheets::spreadsheet(config('challenge.sheet_id'))
+				->range($range)
+				->get();
+			return $values->first()[0] ?? null;
+		} catch (\Exception $e) {
+			Log::error('Google Sheets API error in getValueFromCell: '.$e->getMessage());
+			return null;
+		}
 	}
 }
