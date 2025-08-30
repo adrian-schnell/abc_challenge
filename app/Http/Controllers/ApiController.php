@@ -71,6 +71,6 @@ class ApiController extends Controller
             return response()->json(['errors' => $errors], Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['data' => $data]);
+        return response()->json(['statistic_data' => $data]);
     }
 }
